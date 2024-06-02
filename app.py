@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -23,6 +23,11 @@ def binary_converter():
 @app.route('/')
 def default():
     return "Please enter /binaryconv?num=(your number) in the url above"
+
+@app.route('/health')
+def health():
+    result = jsonify(success=True)
+    return result
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
