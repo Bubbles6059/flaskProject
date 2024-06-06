@@ -1,0 +1,12 @@
+services:
+  flask_app:
+        build: './flask_app'
+        ports:
+          - "8080:5000"
+        depends_on:
+          - redis
+          - worker
+  worker:
+    build: './worker'
+
+
