@@ -1,10 +1,8 @@
-from celery import Celery, shared_task
+from celery import shared_task
 import time
+from worker import config
 
-from flask import Flask
-from config import create_app
-
-flask_app = create_app()
+flask_app = config.create_app()
 celery_app = flask_app.extensions["celery"]
 
 @shared_task(ignore_result=False)

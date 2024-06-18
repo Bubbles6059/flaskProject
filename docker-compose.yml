@@ -2,11 +2,23 @@ services:
   flask_app:
         build: './flask_app'
         ports:
-          - "8080:5000"
+          - "5000:5000"
+        environment:
+          - REDIS_URL=redis
+          - REDIS_PORT=6379
+        volumes:
+          - .:/flask_app
         depends_on:
           - redis
-          - worker
   worker:
     build: './worker'
-
+    volumes:
+      - .:/worker
+    depends_on:
+      - flask_app
+      - redis
+  redis:
+    image: "redis:alpine"
+    ports:
+      - '6379:6379'
 
